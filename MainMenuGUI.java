@@ -7,8 +7,9 @@ import foodshare.donations.DonationsMenuGUI;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author suzam
+ * FoodShare: UN SDG 2 (Zero Hunger)
+ * @authors: Suzanne Soares, ., .
+ * student numbers: x25130137, ., .
  */
 public class MainMenuGUI extends javax.swing.JFrame {
     
