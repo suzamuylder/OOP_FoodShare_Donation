@@ -6,8 +6,8 @@ package foodshare;
 
 /**
  * FoodShare: UN SDG 2 (Zero Hunger)
- * Authors: Suzanne, ., .
- * Purpose: sinlge entry point that lauches the whole project
+ * @authors: Suzanne Soares, ., .
+ * student numbers: x25130137, ., .
  */
 public class FoodShareApp {
 
