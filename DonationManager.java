@@ -5,12 +5,13 @@
 package foodshare.donations;
 
 /**
- *
- * @author suzam
+ * FoodShare: UN SDG 2 (Zero Hunger)
+ * @author: Suzanne Soares
+ * student number: x25130137
  */
 public class DonationManager {
     
     public DonationManager(){
-        //arraylists and loadFromFile() will be added here
+        //the rest of the code, array lists will be added here
     }
 }
