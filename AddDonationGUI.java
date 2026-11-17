@@ -5,10 +5,14 @@
 package foodshare.donations;
 
 import javax.swing.JOptionPane;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
- * @author suzam
+ * FoodShare: UN SDG 2 (Zero Hunger)
+ * Author: Suzanne Soares, x25130137
+ * Purpose: represents a household or shop that donates food
  */
 public class AddDonationGUI extends javax.swing.JFrame {
     
@@ -23,6 +27,14 @@ public class AddDonationGUI extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.manager = manager;
+        // Fills the donor list with the donors saved in the manager
+        donorCOMBO.removeAllItems();
+        for (Donor d : manager.getDonors()) {
+            donorCOMBO.addItem(d.getName());
+        }
+        if (manager.getDonors().isEmpty()) {
+            donorCOMBO.addItem("No donors registered");
+        }
         perishableRADIO.setSelected(true);      
         perishableRADIOActionPerformed(null);   
     }
@@ -58,102 +70,129 @@ public class AddDonationGUI extends javax.swing.JFrame {
         packagingCOMBO = new javax.swing.JComboBox<>();
         saveBTN = new javax.swing.JButton();
         backBTN = new javax.swing.JButton();
+        titleLBL = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        donorLBL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         donorLBL.setText("Donor:");
 
         donorCOMBO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        itemNameLBL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemNameLBL.setText("Item name:");
 
-        categoryLBL.setText("Category");
+        categoryLBL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        categoryLBL.setText("Category:");
 
         categoryCOMBO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fruit and Veg", "Dairy", "Bakery", "Tinned", "Dry Goods" }));
 
-        quantityLBL.setText("Quantity");
+        quantityLBL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        quantityLBL.setText("Quantity:");
 
-        unitLBL.setText("Unit");
+        unitLBL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        unitLBL.setText("Unit:");
 
         buttonGroup1.add(perishableRADIO);
+        perishableRADIO.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         perishableRADIO.setText("Perishable");
         perishableRADIO.addActionListener(this::perishableRADIOActionPerformed);
 
         buttonGroup1.add(nonPerishableRADIO);
+        nonPerishableRADIO.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         nonPerishableRADIO.setText("Non-perishable");
         nonPerishableRADIO.addActionListener(this::nonPerishableRADIOActionPerformed);
 
+        expiryDateLBL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         expiryDateLBL.setText("Expiry date:");
 
+        expiryDateTF.setText("(dd/mm/yyyy)");
+
+        fridgeCHK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         fridgeCHK.setText("Needs fridge");
 
+        bestBeforeLBL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bestBeforeLBL.setText("Best before: ");
 
-        packagingLBL.setText("Packaging");
+        bestBeforeTF.setText("(dd/mm/yyyy)");
+        bestBeforeTF.addActionListener(this::bestBeforeTFActionPerformed);
 
+        packagingLBL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        packagingLBL.setText("Packaging:");
+
+        packagingCOMBO.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         packagingCOMBO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tin", "Box", "Jar", "Bag" }));
 
+        saveBTN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         saveBTN.setText("SAVE");
         saveBTN.addActionListener(this::saveBTNActionPerformed);
 
+        backBTN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         backBTN.setText("BACK");
         backBTN.addActionListener(this::backBTNActionPerformed);
+
+        titleLBL.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        titleLBL.setText("Add Donation");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fridgeCHK, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(quantityLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(quantityTF, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(bestBeforeLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bestBeforeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(nonPerishableRADIO, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(perishableRADIO, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(expiryDateLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(expiryDateTF, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(unitLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(unitTF, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(itemNameLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(itemNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(categoryLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(22, 22, 22)
-                            .addComponent(categoryCOMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(donorLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(donorCOMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(expiryDateLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(expiryDateTF, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fridgeCHK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(perishableRADIO, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nonPerishableRADIO)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(packagingLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(23, 23, 23)
+                                .addComponent(packagingCOMBO, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bestBeforeLBL)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bestBeforeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(donorLBL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(itemNameLBL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(categoryLBL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(quantityLBL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(unitLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(unitTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(quantityTF)
+                                        .addComponent(categoryCOMBO, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(itemNameTF)
+                                        .addComponent(donorCOMBO, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(packagingLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(packagingCOMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(saveBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(backBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(229, Short.MAX_VALUE))
+                        .addGap(63, 63, 63)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(backBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(saveBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(titleLBL)))
+                .addGap(52, 147, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(19, 19, 19)
+                .addComponent(titleLBL)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(donorLBL)
                     .addComponent(donorCOMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -162,27 +201,30 @@ public class AddDonationGUI extends javax.swing.JFrame {
                     .addComponent(itemNameLBL)
                     .addComponent(itemNameTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(categoryLBL)
-                    .addComponent(categoryCOMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(quantityLBL)
-                    .addComponent(quantityTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(unitLBL)
-                    .addComponent(unitTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addComponent(perishableRADIO)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nonPerishableRADIO)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(expiryDateLBL)
-                    .addComponent(expiryDateTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(fridgeCHK)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(categoryCOMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(categoryLBL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(quantityLBL)
+                            .addComponent(quantityTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(unitLBL)
+                            .addComponent(unitTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
+                        .addComponent(perishableRADIO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nonPerishableRADIO)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(expiryDateLBL)
+                            .addComponent(expiryDateTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fridgeCHK)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bestBeforeLBL)
@@ -191,11 +233,11 @@ public class AddDonationGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(packagingLBL)
                     .addComponent(packagingCOMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(48, 48, 48)
                 .addComponent(saveBTN)
                 .addGap(18, 18, 18)
                 .addComponent(backBTN)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -219,7 +261,43 @@ public class AddDonationGUI extends javax.swing.JFrame {
 
     private void saveBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBTNActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Save will be available in the next version.");
+        if (manager.getDonors().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please register a donor first.");
+            return;
+        }
+
+        String name = itemNameTF.getText().trim();
+        String unit = unitTF.getText().trim();
+        if (name.isEmpty() || unit.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in the item name and unit.");
+            return;
+        }
+
+        int quantity;
+        try {
+            quantity = Integer.parseInt(quantityTF.getText().trim());
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Quantity must be a whole number.");
+            return;
+        }
+
+        String category = (String) categoryCOMBO.getSelectedItem();
+        //The combo lists donors in the same order as the ArrayList
+        Donor donor = manager.getDonors().get(donorCOMBO.getSelectedIndex());
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        int id = manager.getNextItemId();
+
+        FoodItem item;  //parent type can hold either child
+        if(perishableRADIO.isSelected()){
+            item = new PerishableItem(id, name, category, quantity, unit, today, donor,
+                    expiryDateTF.getText().trim(), fridgeCHK.isSelected());
+        }else{
+            item = new NonPerishableItem(id, name, category, quantity, unit, today, donor,
+                    bestBeforeTF.getText().trim(), (String) packagingCOMBO.getSelectedItem());
+        }
+
+        manager.addItem(item);
+        JOptionPane.showMessageDialog(this, "Donation saved:\n" + item.printDetails());
         clearFields();
     }//GEN-LAST:event_saveBTNActionPerformed
 
@@ -228,6 +306,10 @@ public class AddDonationGUI extends javax.swing.JFrame {
         new DonationsMenuGUI(manager).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backBTNActionPerformed
+
+    private void bestBeforeTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bestBeforeTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bestBeforeTFActionPerformed
 
     // Empties all fields after saving
     private void clearFields() {
@@ -260,6 +342,7 @@ public class AddDonationGUI extends javax.swing.JFrame {
     private javax.swing.JLabel quantityLBL;
     private javax.swing.JTextField quantityTF;
     private javax.swing.JButton saveBTN;
+    private javax.swing.JLabel titleLBL;
     private javax.swing.JLabel unitLBL;
     private javax.swing.JTextField unitTF;
     // End of variables declaration//GEN-END:variables

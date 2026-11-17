@@ -6,7 +6,9 @@ package foodshare.donations;
 import foodshare.MainMenuGUI;
 /**
  *
- * @author suzam
+ * FoodShare: UN SDG 2 (Zero Hunger)
+ * Author: Suzanne Soares, x25130137
+ * Purpose: represents a household or shop that donates food
  */
 public class DonationsMenuGUI extends javax.swing.JFrame {
     
@@ -15,13 +17,13 @@ public class DonationsMenuGUI extends javax.swing.JFrame {
     private DonationManager manager;
 
     // Used when the section is opened from the main menu
-    public DonationsMenuGUI() {
+    public DonationsMenuGUI(){
         this(new DonationManager());
     }
     /**
      * Creates new form DonationsMenuGUI
      */
-    public DonationsMenuGUI(DonationManager manager) {
+    public DonationsMenuGUI(DonationManager manager){
         initComponents();
         setLocationRelativeTo(null);
         this.manager = manager;
@@ -44,17 +46,22 @@ public class DonationsMenuGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        donationsLBL.setText("Donations");
+        donationsLBL.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        donationsLBL.setText("    Donations");
 
+        addDonorBTN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         addDonorBTN.setText("ADD Donor");
         addDonorBTN.addActionListener(this::addDonorBTNActionPerformed);
 
+        addDonationBTN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         addDonationBTN.setText("ADD Donation");
         addDonationBTN.addActionListener(this::addDonationBTNActionPerformed);
 
+        viewDonationsBTN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         viewDonationsBTN.setText("VIEW Donations");
         viewDonationsBTN.addActionListener(this::viewDonationsBTNActionPerformed);
 
+        backBTN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         backBTN.setText("BACK");
         backBTN.addActionListener(this::backBTNActionPerformed);
 
@@ -63,30 +70,33 @@ public class DonationsMenuGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(donationsLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(backBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewDonationsBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addDonationBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addDonorBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(152, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(backBTN))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(addDonationBTN, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(viewDonationsBTN, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addDonorBTN, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(donationsLBL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(donationsLBL)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(donationsLBL)
-                    .addComponent(addDonorBTN))
+                .addComponent(addDonorBTN)
                 .addGap(18, 18, 18)
                 .addComponent(addDonationBTN)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(viewDonationsBTN)
-                .addGap(18, 18, 18)
+                .addGap(32, 32, 32)
                 .addComponent(backBTN)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();

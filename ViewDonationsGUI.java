@@ -5,10 +5,13 @@
 package foodshare.donations;
 
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
 
 /**
  *
- * @author suzam
+ * FoodShare: UN SDG 2 (Zero Hunger)
+ * Author: Suzanne Soares, x25130137
+ * Purpose: represents a household or shop that donates food
  */
 public class ViewDonationsGUI extends javax.swing.JFrame {
     
@@ -23,7 +26,8 @@ public class ViewDonationsGUI extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.manager = manager;
-        itemsTA.setEditable(false);  // the list is read only
+        itemsTA.setEditable(false);  //the list is read only
+        refreshList(); //shows the saved items when the screen opens
     }
 
     /**
@@ -47,6 +51,7 @@ public class ViewDonationsGUI extends javax.swing.JFrame {
         deleteIdTF = new javax.swing.JTextField();
         searchLBL = new javax.swing.JLabel();
         searchTF = new javax.swing.JTextField();
+        titleLBL = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,76 +59,108 @@ public class ViewDonationsGUI extends javax.swing.JFrame {
         itemsTA.setRows(5);
         jScrollPane1.setViewportView(itemsTA);
 
+        searchTypeCOMBO.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchTypeCOMBO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Name", "Category" }));
 
+        deleteBTN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         deleteBTN.setText("DELETE");
         deleteBTN.addActionListener(this::deleteBTNActionPerformed);
 
+        expiringBTN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         expiringBTN.setText("Expiring Soon");
         expiringBTN.addActionListener(this::expiringBTNActionPerformed);
 
+        displayAllBTN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         displayAllBTN.setText("Display All");
         displayAllBTN.addActionListener(this::displayAllBTNActionPerformed);
 
+        backBTN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         backBTN.setText("BACK");
         backBTN.addActionListener(this::backBTNActionPerformed);
 
+        searchBTN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchBTN.setText("SEARCH");
         searchBTN.addActionListener(this::searchBTNActionPerformed);
 
-        deleteIdLBL.setText("Item ID");
+        deleteIdLBL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        deleteIdLBL.setText("Item ID:");
 
+        searchLBL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchLBL.setText("Search:");
+
+        titleLBL.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        titleLBL.setText("View Donations");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deleteIdLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(deleteIdTF, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(searchLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(searchTF, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchTypeCOMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(displayAllBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(backBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(expiringBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(160, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(deleteIdLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteIdTF))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(searchLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchTF))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(searchBTN, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(searchTypeCOMBO, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(deleteBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(displayAllBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(expiringBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(backBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(158, 158, 158)
+                .addComponent(titleLBL)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchLBL)
-                    .addComponent(searchTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addComponent(searchTypeCOMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchBTN)
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deleteIdLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteIdTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteBTN)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(expiringBTN)
-                .addGap(18, 18, 18)
-                .addComponent(displayAllBTN)
-                .addGap(18, 18, 18)
-                .addComponent(backBTN)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(titleLBL)
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(searchLBL)
+                            .addComponent(searchTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(searchTypeCOMBO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(searchBTN)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(deleteIdLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteIdTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addComponent(expiringBTN)
+                        .addGap(18, 18, 18)
+                        .addComponent(displayAllBTN)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addComponent(deleteBTN)
+                        .addGap(18, 18, 18)
+                        .addComponent(backBTN)
+                        .addGap(26, 26, 26))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
         );
 
         pack();
@@ -131,22 +168,71 @@ public class ViewDonationsGUI extends javax.swing.JFrame {
 
     private void searchBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBTNActionPerformed
         // TODO add your handling code here:
-        showComingSoon();
+        String text = searchTF.getText().trim();
+        if (text.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please type something to search for.");
+            return;
+        }
+
+        if (searchTypeCOMBO.getSelectedItem().equals("Name")) {
+            FoodItem found = manager.searchByName(text);
+            if (found == null) {
+                itemsTA.setText("No item found with the name " + text + ".");
+            } else {
+                itemsTA.setText(found.printDetails());
+            }
+        } else {
+            ArrayList<FoodItem> results = manager.searchByCategory(text);
+            if (results.isEmpty()) {
+                itemsTA.setText("No items found in the category " + text + ".");
+            } else {
+                String output = "";
+                for (FoodItem item : results) {
+                    output += item.printDetails() + "\n\n";
+                }
+                itemsTA.setText(output);
+            }
+        }
     }//GEN-LAST:event_searchBTNActionPerformed
 
     private void deleteBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBTNActionPerformed
         // TODO add your handling code here:
-        showComingSoon();
+        int id;
+        try {
+            id = Integer.parseInt(deleteIdTF.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid item ID.");
+            return;
+        }
+
+        if (manager.deleteItem(id)) {
+            JOptionPane.showMessageDialog(this, "Item " + id + " deleted.");
+        } else {
+            JOptionPane.showMessageDialog(this, "No item found with ID " + id + ".");
+        }
+
+        deleteIdTF.setText("");
+        refreshList();
     }//GEN-LAST:event_deleteBTNActionPerformed
 
     private void expiringBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expiringBTNActionPerformed
         // TODO add your handling code here:
-        showComingSoon();showComingSoon();
+        ArrayList<FoodItem> results = manager.getExpiringSoon();
+
+        if (results.isEmpty()) {
+            itemsTA.setText("No items expiring in the next two days.");
+        } else {
+            String output = "";
+            for (FoodItem item : results) {
+                output += item.printDetails() + "\n\n";
+            }
+            itemsTA.setText(output);
+        }
     }//GEN-LAST:event_expiringBTNActionPerformed
 
     private void displayAllBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayAllBTNActionPerformed
         // TODO add your handling code here:
-        showComingSoon();
+        refreshList();
     }//GEN-LAST:event_displayAllBTNActionPerformed
 
     private void backBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBTNActionPerformed
@@ -155,14 +241,10 @@ public class ViewDonationsGUI extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backBTNActionPerformed
 
-    // Placeholder until functionality is added in Checkpoint 3
-    private void showComingSoon() {
-        JOptionPane.showMessageDialog(this, "This feature will be available in the next version.");
-    }
 
     // Will reload the item list from the manager in Checkpoint 3
     private void refreshList() {
-        itemsTA.setText("");
+        itemsTA.setText(manager.displayAll());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -178,5 +260,6 @@ public class ViewDonationsGUI extends javax.swing.JFrame {
     private javax.swing.JLabel searchLBL;
     private javax.swing.JTextField searchTF;
     private javax.swing.JComboBox<String> searchTypeCOMBO;
+    private javax.swing.JLabel titleLBL;
     // End of variables declaration//GEN-END:variables
 }
