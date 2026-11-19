@@ -5,11 +5,11 @@
 package foodshare.donations;
 
 import javax.swing.JOptionPane;
+import foodshare.FoodShareTheme;
 
 /**
- *FoodShare: UN SDG 2 (Zero Hunger)
+ * FoodShare: UN SDG 2 (Zero Hunger)
  * Author: Suzanne Soares, x25130137
- * Purpose: represents a household or shop that donates food
  */
 public class AddDonorGUI extends javax.swing.JFrame {
     
@@ -24,6 +24,11 @@ public class AddDonorGUI extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.manager = manager;
+        
+        //design
+        FoodShareTheme.apply(this);
+        FoodShareTheme.styleTitle(titleLBL);
+        FoodShareTheme.styleSecondary(backBTN);
     }
 
     /**
@@ -80,6 +85,9 @@ public class AddDonorGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addComponent(titleLBL))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(saveBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -101,11 +109,8 @@ public class AddDonorGUI extends javax.swing.JFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(emailTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(phoneTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                            .addComponent(backBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(titleLBL)))
+                                                .addComponent(phoneTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(backBTN, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(101, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -130,10 +135,10 @@ public class AddDonorGUI extends javax.swing.JFrame {
                     .addComponent(emailLBL)
                     .addComponent(emailTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
-                .addComponent(backBTN)
-                .addGap(18, 18, 18)
                 .addComponent(saveBTN)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(backBTN)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
@@ -150,7 +155,7 @@ public class AddDonorGUI extends javax.swing.JFrame {
         String email = emailTF.getText().trim();
         String type = (String) typeCOMBO.getSelectedItem();
 
-        //Validation: name and phone are required
+        //validation - name and phone are required
         if (name.isEmpty() || phone.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter at least a name and a phone number.");
             return;

@@ -5,15 +5,15 @@ package foodshare.donations;
  * Author: Suzanne Soares, x25130137
  * Purpose: food with a long shelf life, such as tins, pasta or rice
  */
-public class NonPerishableItem extends FoodItem {
-
-    private String bestBeforeDate;
+public class NonPerishableItem extends FoodItem{ //inherits everything from FoodItem
+    //attributes only non-perishable items have
+    private String bestBeforeDate; 
     private String packagingType;
 
     public NonPerishableItem(int itemId, String name, String category, int quantity, String unit,
                              String dateDonated, Donor donor, String bestBeforeDate, String packagingType) {
-        super(itemId, name, category, quantity, unit, dateDonated, donor);
-        this.bestBeforeDate = bestBeforeDate;
+        super(itemId, name, category, quantity, unit, dateDonated, donor); //super clls the constructor to fill in the shared part
+        this.bestBeforeDate = bestBeforeDate; //then fills in its own part
         this.packagingType = packagingType;
     }
 
@@ -41,12 +41,12 @@ public class NonPerishableItem extends FoodItem {
         return packagingType; 
     }
 
-    @Override
+    @Override //replace the parent's abstract method
     public String getStorageInfo() {
         return "Store in a dry cupboard (" + packagingType + "), best before " + bestBeforeDate;
     }
 
-    @Override
+    @Override //reuses the parent's text and adds its own
     public String printDetails() {
         return super.printDetails() + "\n   Non-perishable. " + getStorageInfo();
     }

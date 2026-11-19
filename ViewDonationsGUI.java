@@ -6,12 +6,12 @@ package foodshare.donations;
 
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import foodshare.FoodShareTheme;
 
 /**
  *
  * FoodShare: UN SDG 2 (Zero Hunger)
  * Author: Suzanne Soares, x25130137
- * Purpose: represents a household or shop that donates food
  */
 public class ViewDonationsGUI extends javax.swing.JFrame {
     
@@ -28,6 +28,12 @@ public class ViewDonationsGUI extends javax.swing.JFrame {
         this.manager = manager;
         itemsTA.setEditable(false);  //the list is read only
         refreshList(); //shows the saved items when the screen opens
+        
+        //design
+        FoodShareTheme.apply(this);
+        FoodShareTheme.styleTitle(titleLBL);
+        FoodShareTheme.styleSecondary(backBTN);
+        FoodShareTheme.styleDanger(deleteBTN);
     }
 
     /**

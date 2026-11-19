@@ -5,18 +5,19 @@ import java.io.Serializable;
 /*
  * FoodShare: UN SDG 2 (Zero Hunger)
  * Author: Suzanne Soares, x25130137
- * Purpose: abstract parent class for all donated food items.
  * Attributes are protected so the child classes can use them directly.
  */
 public abstract class FoodItem implements Serializable {
-
-    protected int itemId;
+    //Parent class
+    //Abstract because you can't create a new FoodItem()
+    //Only the child classes are created
+    protected int itemId; //protected so the child class can have access
     protected String name;
     protected String category;
     protected int quantity;
     protected String unit;
     protected String dateDonated;
-    protected Donor donor;
+    protected Donor donor; //each item stores WHO donated it
 
     protected FoodItem(int itemId, String name, String category, int quantity,
                        String unit, String dateDonated, Donor donor) {
@@ -81,13 +82,13 @@ public abstract class FoodItem implements Serializable {
         return donor; 
     }
 
-    // Details shared by every food item; child classes add their own
+    //details shared by every food item
     public String printDetails() {
         String donorName = (donor != null) ? donor.getName() : "Unknown";
         return "ID " + itemId + ": " + name + " | " + category + " | "
                 + quantity + " " + unit + " | donated " + dateDonated + " by " + donorName;
     }
 
-    // Abstract: each child class must say how its food should be stored
+    //Abstract: each child class must say how its food should be stored
     public abstract String getStorageInfo();
 }

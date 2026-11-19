@@ -14,24 +14,25 @@ import java.util.ArrayList;
 
 /**
  * FoodShare: UN SDG 2 (Zero Hunger)
- * @author: Suzanne Soares
- * student number: x25130137
+ * Author: Suzanne Soares, x25130137
+ * Represents a household or shop that donates food
  */
 public class DonationManager {
     
-    private ArrayList<FoodItem> items;
-    private ArrayList<Donor> donors;
+    private ArrayList<FoodItem> items; //list of food items - holds both child types
+    private ArrayList<Donor> donors; //list of donors
     private String fileName;
     
     public DonationManager(){
         items = new ArrayList<>();
         donors = new ArrayList<>();
         fileName = "donations.dat";
-        loadFromFile();  //brings back the data saved last time
+        loadFromFile();  //when the section opens, it brings back the saved data
     }
     
     
     //ADD
+    //adds the object to the list and saves the file, so nothing is lost if the program closes
     public void addItem(FoodItem item){
         items.add(item);
         saveToFile();
@@ -70,7 +71,9 @@ public class DonationManager {
     
     
     //DISPLAY
-    //Polymorphism: printDetails() runs the version of each item's own class
+    //Polymorphism
+    //the variable has type FoodItem, but Java runs the version of
+    //printDetails() that belongs to each object's REAL class.
     public String displayAll(){
         if(items.isEmpty()){
             return "No donations recorded yet.";
@@ -84,6 +87,9 @@ public class DonationManager {
     
     
     //SEARCH
+    //by name, returns one item
+    //by cathegory, returns a list
+    //because several items can sahre a category
     public FoodItem searchByName(String name){
         for(FoodItem item : items){
             if(item.getName().equalsIgnoreCase(name)){
@@ -119,6 +125,7 @@ public class DonationManager {
     
     
     //DELETE
+    //searches by ID, if found, removes it, saves and returns true
     public boolean deleteItem(int itemId){
         for(int i = 0; i < items.size(); i++){
             if(items.get(i).getItemId() == itemId){
@@ -133,9 +140,10 @@ public class DonationManager {
     
     //FILE
     public void saveToFile(){
+        //closes the file automatically at the end, even if an error occurs
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))){
-            out.writeObject(items);
-            out.writeObject(donors);
+            out.writeObject(items); //writes the whole list at once
+            out.writeObject(donors); 
         }catch (IOException e) {
             System.out.println("Error saving file: " + e.getMessage());
         }
@@ -144,7 +152,7 @@ public class DonationManager {
     @SuppressWarnings("unchecked")
     public void loadFromFile(){
         File file = new File(fileName);
-        if(!file.exists()){
+        if(!file.exists()){ //first run - no file yet
             return;  
         }
         try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))){

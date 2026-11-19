@@ -7,12 +7,11 @@ package foodshare.donations;
 import javax.swing.JOptionPane;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import foodshare.FoodShareTheme;
 
 /**
- *
  * FoodShare: UN SDG 2 (Zero Hunger)
  * Author: Suzanne Soares, x25130137
- * Purpose: represents a household or shop that donates food
  */
 public class AddDonationGUI extends javax.swing.JFrame {
     
@@ -27,7 +26,7 @@ public class AddDonationGUI extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.manager = manager;
-        // Fills the donor list with the donors saved in the manager
+        //Fills the donor list with the donors saved in the manager
         donorCOMBO.removeAllItems();
         for (Donor d : manager.getDonors()) {
             donorCOMBO.addItem(d.getName());
@@ -37,6 +36,11 @@ public class AddDonationGUI extends javax.swing.JFrame {
         }
         perishableRADIO.setSelected(true);      
         perishableRADIOActionPerformed(null);   
+        
+        //design
+        FoodShareTheme.apply(this);
+        FoodShareTheme.styleTitle(titleLBL);
+        FoodShareTheme.styleSecondary(backBTN);
     }
 
     /**
@@ -311,7 +315,7 @@ public class AddDonationGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_bestBeforeTFActionPerformed
 
-    // Empties all fields after saving
+    //Empties all fields after saving
     private void clearFields() {
         itemNameTF.setText("");
         quantityTF.setText("");
