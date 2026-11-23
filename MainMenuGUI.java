@@ -4,8 +4,10 @@
  */
 package foodshare;
 import foodshare.donations.DonationsMenuGUI;
-import foodshare.foodbank.FoodBankMenuGUI;
-import foodshare.requests.RequestManagerGUI;
+
+//All connections to others sections were put as a note
+//import foodshare.foodbank.FoodBankMenuGUI;
+//import foodshare.requests.RequestManagerGUI;
 
 /**
  * FoodShare: UN SDG 2 (Zero Hunger)
@@ -111,14 +113,14 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
     private void foodBanksBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foodBanksBTNActionPerformed
         // TODO add your handling code here:
-        new FoodBankMenuGUI().setVisible(true);
-        this.dispose();
+        //new FoodBankMenuGUI().setVisible(true);
+        //this.dispose();
     }//GEN-LAST:event_foodBanksBTNActionPerformed
 
     private void requestsBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestsBTNActionPerformed
         // TODO add your handling code here:
-        new RequestManagerGUI().setVisible(true);
-        this.dispose();
+        //new RequestManagerGUI().setVisible(true);
+        //this.dispose();
     }//GEN-LAST:event_requestsBTNActionPerformed
 
     private void exitBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBTNActionPerformed
