@@ -70,13 +70,13 @@ public class FoodShareTheme {
         UIManager.put("ComboBox.selectionBackground", SAGE_LIGHT);
         UIManager.put("ComboBox.selectionForeground", INK);
 
-        // The content pane becomes transparent and gets empty space at the
-        // top, where the header is painted
+        //The content pane becomes transparent and gets empty space at the
+        //top, where the header is painted
         JComponent content = (JComponent) frame.getContentPane();
         content.setOpaque(false);
         content.setBorder(BorderFactory.createEmptyBorder(HEADER_HEIGHT + 6, 12, 12, 12));
 
-        // A background panel is placed in a layer BEHIND the screen's components
+        //A background panel is placed in a layer BEHIND the screen's components
         BackgroundPanel background = new BackgroundPanel();
         JLayeredPane layers = frame.getLayeredPane();
         layers.add(background, Integer.valueOf(JLayeredPane.FRAME_CONTENT_LAYER - 1));
@@ -113,7 +113,7 @@ public class FoodShareTheme {
                 styleField((JTextField) c);
             } else if (c instanceof JComboBox) {
                 styleCombo((JComboBox<?>) c);
-                continue;   // its inner arrow button must not become a green button
+                continue;   //its inner arrow button must not become a green button
             } else if (c instanceof JRadioButton || c instanceof JCheckBox) {
                 c.setForeground(INK);
                 ((JComponent) c).setOpaque(false);
